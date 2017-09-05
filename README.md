@@ -20,3 +20,23 @@ class MyObjectSystem < BasicObject
   end
 end
 ```
+
+## 2. `===` 与 Proc
+
+case语句使用`===`来判定分支是否匹配，而Ruby的Proc对象正好定义`===`（call的别名）。
+
+```ruby
+even = ->(x) { (x % 2) == 0 }
+
+p even === 4
+p even === 9
+
+num = gets.chomp.to_i
+case num
+when even
+  puts "#{num} is even"
+else
+  puts "#{num} is not even"
+end
+```
+
