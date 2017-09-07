@@ -89,3 +89,55 @@ puts 'D private methods' + D.private_methods.grep(/^[c|d]$/).to_s
 puts 'D instance methods' + D.instance_methods.grep(/^[c|d]$/).to_s
 puts 'D private instance methods' + D.private_instance_methods.grep(/^[c|d]$/).to_s
 ```
+
+## 4. `SimpleDelegator` 类和 `DelegatorClass` 方法和 `Forwardable` 模块
+
+Delegator
+
+```ruby
+class C
+  def test
+    puts "test"
+  end
+end
+
+require 'delegate'
+
+class D < SimpleDelegator; end
+D.new(C.new).test
+
+class E < DelegateClass C; end
+E.new(C.new).test
+```
+
+Forwardable
+
+```ruby
+class C
+  def test
+    puts "test"
+  end
+end
+
+require 'forwardable'
+
+class F
+  extend Forwardable
+
+  def initialize
+    @c = C.new
+  end
+  def_delegator :@c, :test
+end
+
+class G
+  extend SingleForwardable
+  
+  @c = C.new
+  def_delegator :@c, :test
+end
+
+F.new.test
+G.test
+```
+
