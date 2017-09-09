@@ -159,3 +159,19 @@ rescue XXError => e
 end
 ```
 
+## 6. `arity` `~`
+
+```ruby
+func = -> (x, y=1) { x + y }
+
+# 简单的说，arity方法返回方法或者Proc的需要的参数
+# 如果不需要参数，返回0
+# 如果确定需要n个参数，返回n
+# 如果有n个可选参数，返回-n-1
+arity = func.arity
+
+# 通过一元补充操作符（~）来得到有几个参数是必须的
+args_size = ~ arity
+
+p args_size
+```
