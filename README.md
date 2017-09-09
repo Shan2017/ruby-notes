@@ -141,3 +141,21 @@ F.new.test
 G.test
 ```
 
+## 5. `retry` 指数退避重试
+
+```ruby
+retries = 0
+
+begin
+  # TODO: 正常代码
+rescue XXError => e
+  raise if retries >= 3
+  retries += 1
+
+  logger.warn "API failure: #{e} , retrying ..."
+
+  sleep 5**retrying
+  retry
+end
+```
+
