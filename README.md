@@ -53,7 +53,7 @@ module M
 end
 
 module N
-  # ËùÓÐÊµÀý·½·¨±ä³Éprivate
+  # 除了实例方法变为模块的单例方法之外，还把模块的实例方法变成private
   module_function
 
   def c; end
@@ -62,10 +62,12 @@ module N
   def d; end
 end
 
+puts 'M methods' + M.methods.grep(/^[a|b]$/).to_s
 puts 'M singleton methods' + M.singleton_methods.grep(/a|b/).to_s
 puts 'M instance methods' + M.instance_methods.grep(/a|b/).to_s
 puts 'M private instance methods' + M.private_instance_methods.grep(/a|b/).to_s
 puts
+puts 'N methods' + N.methods.grep(/^[c|d]$/).to_s
 puts 'N singleton methods' + N.singleton_methods.grep(/c|d/).to_s
 puts 'N instance methods' + N.instance_methods.grep(/c|d/).to_s
 puts 'N private instance methods' + N.private_instance_methods.grep(/c|d/).to_s
